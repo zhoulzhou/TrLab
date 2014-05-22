@@ -3,6 +3,7 @@ package com.example.trlab;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.trlab.selfview.TipView;
 import com.example.trlab.spinner.SpinnerAdapter;
 
 import android.os.Bundle;
@@ -36,9 +37,18 @@ public class MainActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_main);
+		initTipView();
+	}
+	
+	private void initTipView(){
+		TipView tipView = new TipView(this);
+		tipView.setTipText("卖弄");
+//		setContentView(tipView);
 		
 		initList();
+		mList.addHeaderView(tipView);
 		
 	}
 	
