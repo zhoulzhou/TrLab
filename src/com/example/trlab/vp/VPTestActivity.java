@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.trlab.R;
+import com.example.trlab.vp.TabView.OnPagerStateChangedListener;
 import com.example.trlab.vp.VPActivity.MyPagerAdapter;
 
 import android.app.Activity;
@@ -30,6 +31,15 @@ public class VPTestActivity extends Activity{
 		mViewLists.add(inflater.inflate(R.layout.vp_item1, null));
 		mViewLists.add(inflater.inflate(R.layout.vp_item2, null));
 		mTabView.setPagerAdapter(new MyPagerAdapter(mViewLists));
+		mTabView.setOnPagerChangedListener(new OnPagerStateChangedListener() {
+			
+			@Override
+			public void onPagerStateChanged(int curIndex, int state) {
+				
+				
+			}
+		});
+		mTabView.setCurrenIndex(0, true);
 	}
 	
 	public class MyPagerAdapter extends PagerAdapter{

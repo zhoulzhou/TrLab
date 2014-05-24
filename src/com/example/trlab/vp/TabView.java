@@ -96,7 +96,7 @@ public class TabView extends LinearLayout{
 		}
 	}
 	
-    private void setCurrenIndex(int index, boolean needAnimation){
+    public void setCurrenIndex(int index, boolean needAnimation){
     	if(index <0 || index > mPager.getAdapter().getCount() || index == mCurIndex){
     		return ;
     	}

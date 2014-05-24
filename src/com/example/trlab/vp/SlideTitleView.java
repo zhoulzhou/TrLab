@@ -33,7 +33,7 @@ public class SlideTitleView extends LinearLayout{
 	private void initView(Context context){
 		mContext = context;
 		LayoutInflater inflater = LayoutInflater.from(mContext);
-		mImage = (ImageView) inflater.inflate(R.layout.slide_title_view_layout, this);
+		mImage = (ImageView) inflater.inflate(R.layout.slide_title_view_layout, null);
 	}
 	
 	private void initParams(){
