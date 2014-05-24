@@ -7,6 +7,10 @@
         <item>锁屏</item>
         <item>字体</item>
     </string-array>
-   
+   <string-array name="tab_title_array">
+        <item>online</item>
+        <item>local</item>
+        <item>persion</item>
+    </string-array>
     
 </resources>

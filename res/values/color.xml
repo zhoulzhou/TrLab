@@ -4,4 +4,9 @@
 	<color name="spinner_list_background">#EFEFEF</color>
 	<color name="spinner_list_select">#7BCBEE</color>
 	<color name="spinner_list_divider">#D8D8D8</color>
+	
+	<color name="transparent">#00000000</color>
+	<color name="tab_top_text_color">#9da1a7</color>
+	<color name="tab_title_color">#ffffff</color>
+	
 </resources>

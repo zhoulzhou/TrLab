@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <declare-styleable name="tab_view">
+	    <attr name="tab_title_bg" format="reference"></attr>
+	    <attr name="top_bg" format="reference"></attr>
+	    <attr name="tab_item_text_size" format="reference"></attr>
+	    <attr name="tab_item_text_color" format="reference"></attr>
+	    <attr name="tab_title_str_array" format="reference"></attr>
+	 </declare-styleable>
+    
+</resources>
