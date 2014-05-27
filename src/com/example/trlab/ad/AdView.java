@@ -40,6 +40,9 @@ public class AdView extends RelativeLayout {
 			if(msg.what == 0){
 				mCurrIndex ++;
 				Log.d("zhou","handle mCurrIndex= " + mCurrIndex);
+				if(mCurrIndex > 4){
+					mCurrIndex = 0;
+				}
 				mPager.setCurrentItem(mCurrIndex);
 			}
 		}
@@ -72,6 +75,10 @@ public class AdView extends RelativeLayout {
 		mPointView.updateIndicator(0, 5);
 		
 		initPager();
+	}
+	
+	public void getAdItemList(){
+		//获取在线列表
 	}
 	
 	public void startCarousel(){
