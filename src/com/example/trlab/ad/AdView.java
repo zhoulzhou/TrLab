@@ -13,6 +13,7 @@ import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class AdView extends RelativeLayout {
 			super.handleMessage(msg);
 			if(msg.what == 0){
 				mCurrIndex ++;
+				Log.d("zhou","handle mCurrIndex= " + mCurrIndex);
 				mPager.setCurrentItem(mCurrIndex);
 			}
 		}
@@ -116,6 +118,7 @@ public class AdView extends RelativeLayout {
 			
 			@Override
 			public void onPageSelected(int arg0) {
+				Log.d("zhou","pageSelected = " + arg0);
 				mCurrIndex = arg0;
 				mPointView.updateIndicator(mCurrIndex, 5);
 			}

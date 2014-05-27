@@ -86,7 +86,7 @@ public class AdPointView extends ImageView{
 		if(curr > total){
 			return ;
 		}
-		
+		mCurr = curr;
 		int oldTotalNum = mTotalNum;
 		if(total >= 1){
 			mTotalNum = total;
