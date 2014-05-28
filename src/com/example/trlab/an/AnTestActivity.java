@@ -3,6 +3,7 @@ package com.example.trlab.an;
 import com.example.trlab.R;
 
 import android.app.Activity;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,11 +17,15 @@ public class AnTestActivity extends Activity{
 		setContentView(R.layout.an_test_layout);
 		
 		ImageView im = (ImageView) findViewById(R.id.an_image);
-		Animation anim = AnimationUtils.loadAnimation(this, R.anim.myanim);
-		im.startAnimation(anim);
+//		Animation anim = AnimationUtils.loadAnimation(this, R.anim.myanim);
+//		im.startAnimation(anim);
 //		anim.setRepeatMode(Animation.RESTART);
 //		anim.setRepeatCount(Animation.INFINITE);
 //		anim.start();
+		
+		im.setBackgroundResource(R.drawable.wifianim);
+		AnimationDrawable ad = (AnimationDrawable) im.getBackground();
+		ad.start();
 	}
 	
 }
