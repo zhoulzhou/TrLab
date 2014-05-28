@@ -17,10 +17,10 @@ public class AnTestActivity extends Activity{
 		
 		ImageView im = (ImageView) findViewById(R.id.an_image);
 		Animation anim = AnimationUtils.loadAnimation(this, R.anim.myanim);
-		im.setAnimation(anim);
+		im.startAnimation(anim);
 //		anim.setRepeatMode(Animation.RESTART);
 //		anim.setRepeatCount(Animation.INFINITE);
-		anim.start();
+//		anim.start();
 	}
 	
 }
