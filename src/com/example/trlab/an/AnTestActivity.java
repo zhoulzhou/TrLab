@@ -85,6 +85,17 @@ public class AnTestActivity extends Activity{
 	   im.setBackgroundResource(R.drawable.wifianim);
 	   ad = (AnimationDrawable) im.getBackground();
        ad.start();
+       
+       //改变性能吧 
+//       handler.postDelayed(new Runnable(){
+//
+//		@Override
+//		public void run() {
+//			ad.start();
+//			
+//		}
+//    	   
+//       }, 1000);
 		
 		int duration = 0;
 		for (int i=0; i<ad.getNumberOfFrames(); i++){
