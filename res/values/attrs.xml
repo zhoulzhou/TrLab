@@ -7,5 +7,9 @@
 	    <attr name="tab_item_text_color" format="reference"></attr>
 	    <attr name="tab_title_str_array" format="reference"></attr>
 	 </declare-styleable>
+	 
+    <declare-styleable name="HelloGallery">  
+        <attr name="android:galleryItemBackground"/>  
+    </declare-styleable>  
     
 </resources>
