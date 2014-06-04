@@ -17,6 +17,8 @@ public class GalleryTestActivity extends Activity{
 		setContentView(R.layout.gallery_test_layout);
 		
 		GalleryLayout gallery = (GalleryLayout) findViewById(R.id.gallery);
+		OScrollView scrollview = (OScrollView) findViewById(R.id.oscrollview);
+		scrollview.addEffectView(gallery);
 		GalleryAdapter adapter = new GalleryAdapter(this);
 		gallery.setAdapter(adapter);
 		

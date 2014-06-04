@@ -4,13 +4,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    
-    <com.example.trlab.gallery.GalleryLayout 
-        android:id="@+id/gallery"
+    <com.example.trlab.gallery.OScrollView
+        android:id="@+id/oscrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        />
- 
+        android:layout_height="wrap_content" >
+        
+        <LinearLayout
+            android:id="@+id/scrollcontainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            
+       
+
+        <com.example.trlab.gallery.GalleryLayout
+            android:id="@+id/gallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip" />
+        
+          <TextView 
+            android:id="@+id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="lsdfakjsdkl"
+            />
+         </LinearLayout>
+    </com.example.trlab.gallery.OScrollView>
 
 </LinearLayout>
