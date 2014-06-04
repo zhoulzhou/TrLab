@@ -16,7 +16,7 @@ public class GalleryTestActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gallery_test_layout);
 		
-		Gallery gallery = (Gallery) findViewById(R.id.gallery);
+		GalleryLayout gallery = (GalleryLayout) findViewById(R.id.gallery);
 		GalleryAdapter adapter = new GalleryAdapter(this);
 		gallery.setAdapter(adapter);
 		
