@@ -27,9 +27,16 @@
           <TextView 
             android:id="@+id/text1"
             android:layout_width="match_parent"
-            android:layout_height="100dip"
+            android:layout_height="300dip"
             android:text="lsdfakjsdkl"
             />
+          
+          <ImageView 
+              android:id="@+id/image1"
+              android:layout_width="match_parent"
+              android:layout_height="300dip"
+              android:src="@drawable/ic_launcher"
+              />
          </LinearLayout>
     </com.example.trlab.gallery.OScrollView>
 
