@@ -36,8 +36,7 @@ public class ScrollImageView extends HorizontalScrollView{
         inflater.inflate(R.layout.scroll_image_view_layout, this);
         
         mImage = (ImageView) findViewById(R.id.content);
-        mImageWidth = mImage.getWidth();
-        mSpaceWidth = (mImageWidth - DisplayUtil.WIDTH) / 2;
+       
         setHorizontalScrollBarEnabled(false);
         setOverScrollMode(HorizontalScrollView.OVER_SCROLL_NEVER);
     }
@@ -69,8 +68,9 @@ public class ScrollImageView extends HorizontalScrollView{
         mIsLoadFinish = false;
         mImage.setBackgroundResource(resId);
         mIsLoadFinish = true;
+        
         if(mOnLoadFinishListener != null){
-            mOnLoadFinishListener.onLoadFinish(mImageWidth);
+            mOnLoadFinishListener.onLoadFinish(DisplayUtil.WIDTH * 2);
         }
     }
 
@@ -82,6 +82,8 @@ public class ScrollImageView extends HorizontalScrollView{
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
+        mImageWidth = mImage.getWidth();
+        mSpaceWidth = (mImageWidth - DisplayUtil.WIDTH) / 2;
         if (mIsLoadFinish) {
             scrollBy(mSpaceWidth, 0);
             mIsLoadFinish = false;

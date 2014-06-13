@@ -4,6 +4,7 @@ import com.example.trlab.R;
 import com.example.trlab.utils.DisplayUtil;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -42,7 +43,9 @@ public class SlideProgressView extends LinearLayout{
     }
     
     public void onScroll(float percent){
+        log("progressview= " + " percent= " + percent);
         int scrollX = -(mSpaceWidth + (int) (percent * mSpaceWidth));
+        log("progressview= " + " scrollX= " + scrollX + " mSpaceWidth= " + mSpaceWidth + " mMargin= " + mMargin);
         if(Math.abs(scrollX + mBtnWidth ) > mTotalWidth){
             return ;
         }
@@ -60,9 +63,14 @@ public class SlideProgressView extends LinearLayout{
         mTotalWidth = getWidth() - 8;
         mBtnWidth = mTextView.getWidth();
         mSpaceWidth = (mTotalWidth - mBtnWidth) / 2;
+        log("progressview " + " mTotalWidth= " + mTotalWidth + " mBtnWidth= " + mBtnWidth + " mSpaceWidth= " + mSpaceWidth);
         if(!mIsInitScroll){
             scrollTo(-mSpaceWidth, 0);
         }
+    }
+    
+    private void log(String s){
+        Log.d("zhou",s);
     }
     
 }
