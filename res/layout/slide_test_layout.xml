@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/springlistviewbackground"
+    android:orientation="vertical"
+    >
+    
+    <com.example.trlab.slideview.SlideView
+        android:id="@+id/slide_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        
+        />
+
+</LinearLayout>

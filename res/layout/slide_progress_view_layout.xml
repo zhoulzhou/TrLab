@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="77dp"
+    android:layout_height="6.67dp"
+    android:background="@drawable/pageindicator_bg"
+    android:orientation="horizontal" > -->
+
+    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/sliding_btn"
+        android:layout_width="25.66dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="1.33dp"
+        android:background="@drawable/pageindicator_bar" />
+
+<!-- </LinearLayout> -->
