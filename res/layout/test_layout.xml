@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+      <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/sliding_btn"
+        android:layout_width="25.66dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="1.33dp"
+        android:background="@drawable/pageindicator_bar"
+        />
+
+  
