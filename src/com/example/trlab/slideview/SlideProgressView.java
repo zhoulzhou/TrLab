@@ -33,13 +33,12 @@ public class SlideProgressView extends LinearLayout{
         mContext = context;
         setOrientation(LinearLayout.HORIZONTAL);
         setBackgroundResource(R.drawable.pageindicator_bg);
-        LayoutParams params = new LayoutParams((int) (77 * DisplayUtil.DENSITY), (int) (6.67 * DisplayUtil.DENSITY));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) (77 * DisplayUtil.DENSITY), (int) (77.67 * DisplayUtil.DENSITY));
         setLayoutParams(params);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         inflater.inflate(R.layout.slide_progress_view_layout, this);
         
         mTextView = (TextView) findViewById(R.id.sliding_btn);
-        
     }
     
     public void onScroll(float percent){
@@ -59,6 +58,7 @@ public class SlideProgressView extends LinearLayout{
     
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension((int) (77 * DisplayUtil.DENSITY), (int) (6.67 * DisplayUtil.DENSITY));
         mTotalWidth = getWidth() - 8;
         mBtnWidth = mTextView.getWidth();

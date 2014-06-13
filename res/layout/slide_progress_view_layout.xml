@@ -5,7 +5,7 @@
     android:background="@drawable/pageindicator_bg"
     android:orientation="horizontal" > -->
 
-    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/sliding_btn"
         android:layout_width="25.66dp"
         android:layout_height="4dp"
