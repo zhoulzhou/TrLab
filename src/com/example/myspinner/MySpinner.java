@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,7 @@ public class MySpinner extends Button {
 			}
 			if(!dropDown.isShowing()){
 				dropDown.showAsDropDown(MySpinner.this);
+				
 			}
 		}
 		
@@ -115,7 +117,9 @@ public class MySpinner extends Button {
 		
 		
 		public void showAsDropDown(View view) {
-			showAsDropDown(view, 0, 0);
+//			showAsDropDown(view, 0, 0);
+			showAtLocation(view, Gravity.CENTER, 0, 0);
+//			showAsDropDown(view);
 			update();		//刷新
 		}
 

@@ -39,8 +39,20 @@ public class MainActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_main);
-		initTipView();
+		
+		initSpinner();
 	}
+	
+	
+	private void fomatString(){
+        String s = "http://storefsdev.wanyol.com:8090/";
+
+        String s1 = "http://storefs1.wanyol.com:8090/uploadFiles/PThemes/201405/30/b925b42440684b879bbe2a20e87a9f34.theme";
+        String s2 = s1.substring(0, s1.indexOf("uploadFiles"));
+        String s3 = s1.replaceAll(s2, s);
+        log("s2= " + s2);
+        log("s3= " + s3);
+    }
 	
 	private void initTipView(){
 		TipView tipView = new TipView(this);
@@ -129,14 +141,25 @@ public class MainActivity extends Activity implements OnClickListener{
 		mSpinner = (Spinner) findViewById(R.id.search_type);
 		mSpinner.setPromptId(R.string.type_tip);
 		
-		String[] types = getResources().getStringArray(R.array.plantes);
+		final String[] types = getResources().getStringArray(R.array.plantes);
 		List<String> strings = new ArrayList<String>();
 		for(int i=0;i<types.length;i++){
 			strings.add(types[i]);
 		}
-		mAdapter = ArrayAdapter.createFromResource(this, R.array.plantes,  R.layout.simple_spinner_item);
-//		mAdapter = new SpinnerAdapter(this,types);
-		 ((ArrayAdapter) mAdapter).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//		mAdapter = ArrayAdapter.createFromResource(this, R.array.plantes,  R.layout.simple_spinner_item);
+//		mAdapter = new SpinnerAdapter(this,types) {
+//            @Override
+//            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+//                LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+//                convertView = inflater.inflate(R.layout.spinner_item_layout, null);
+//                TextView label = (TextView) convertView.findViewById(R.id.spinner_item_label);
+//                label.setText(types[position]);
+//                return convertView;
+//            }
+//        };
+        mAdapter = new SpinnerAdapter(this,types);
+//		 ((ArrayAdapter) mAdapter).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		 
 		 
 		mSpinner.setAdapter(mAdapter);
 //		mSpinner.setPromptId(R.string.type_tip);
