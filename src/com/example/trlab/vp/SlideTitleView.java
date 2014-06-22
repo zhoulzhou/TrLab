@@ -6,7 +6,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.WindowId;
+//import android.view.WindowId;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
