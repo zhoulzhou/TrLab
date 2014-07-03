@@ -7,7 +7,22 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
+    
+    <!-- 许可 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
+    <!-- 创建你自己的 permission 去保护 payment broadcast -->
+    <permission
+        android:name="com.example.trlab.PAYMENT_BROADCAST_PERMISSION"
+        android:label="Read payment status"
+        android:protectionLevel="signature" />
+    <!-- 系统自动授予 "signature" permission，不需要通知 user. -->
+    <uses-permission android:name="com.example.trlab.PAYMENT_BROADCAST_PERMISSION" />
+    
     <application
         android:name="com.example.trlab.TrLabApplication"
         android:allowBackup="true"
@@ -15,7 +30,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.myspinner.Test"
+            android:name="com.example.trlab.pay.PayTestActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +38,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- pay start -->
+        <receiver android:name="mp.MpSMSReceiver" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="mp.MpService" />
+        <service android:name="mp.StatusUpdateService" />
+
+        <activity
+            android:name="mp.MpActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 在编写你自己的 BroadcastReceiver 去追踪 payment 状况时，需要用 <strong>signature</strong>permission</p> 去保护它。 -->
+        <receiver
+            android:name=".pay.PaymentStatusReceiver"
+            android:permission="com.example.trlab.PAYMENT_BROADCAST_PERMISSION" >
+            <intent-filter>
+                <action android:name="mp.info.PAYMENT_STATUS_CHANGED" />
+            </intent-filter>
+        </receiver>
+        
+        <!-- pay end -->
+        
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+  
+    
     
 </manifest>

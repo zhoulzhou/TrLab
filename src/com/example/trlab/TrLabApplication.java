@@ -12,6 +12,7 @@ public class TrLabApplication extends Application{
     public void onCreate() {
         super.onCreate();
         DisplayUtil.initDensity(this);
+        mp.MpUtils.enablePaymentBroadcast(this, Manifest.permission.PAYMENT_BROADCAST_PERMISSION);
     }
     
     public static Context getAppContext(){
