@@ -30,7 +30,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.trlab.pay.PayTestActivity"
+            android:name="com.example.trlab.pay.BCTestActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,6 +60,13 @@
             android:permission="com.example.trlab.PAYMENT_BROADCAST_PERMISSION" >
             <intent-filter>
                 <action android:name="mp.info.PAYMENT_STATUS_CHANGED" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver 
+            android:name="com.example.trlab.pay.BCTestActivity$TestBroadcast">
+            <intent-filter>
+                <action android:name="com.test.bc"></action>
             </intent-filter>
         </receiver>
         
