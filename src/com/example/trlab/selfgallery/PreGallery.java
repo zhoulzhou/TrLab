@@ -3,19 +3,20 @@ package com.example.trlab.selfgallery;
 import java.util.ArrayList;
 
 import com.example.trlab.R;
+import com.example.trlab.utils.LogUtil;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 public class PreGallery extends HorizontalScrollView implements View.OnTouchListener {
 
     private Context mContext;
@@ -29,30 +30,59 @@ public class PreGallery extends HorizontalScrollView implements View.OnTouchList
     private boolean mStart;
 
     private int mItemWidth;
-
-    View targetLeft, targetRight;
-    ImageView leftImage, rightImage;
+    
+    View mItem;
     
     private LayoutInflater mInflater;
     private LinearLayout mContainer;
+    private int mDisplayPosition ;
+    
+    private RecycleBin mRecycle = new RecycleBin();
+    
+    private Handler mHandler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			
+		}
+    	
+    };
 
     public PreGallery(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         mContext=context;
         mItemWidth = 100; // or whatever your item width is.
+        mInflater = LayoutInflater.from(mContext);
         setOnTouchListener(this);
         initViews();
     }
     
     private void initViews(){
-        mContainer =  (LinearLayout) mInflater.inflate(R.layout.pre_gallery_layout, this);
-        
+        mContainer =   (LinearLayout) mInflater.inflate(R.layout.pre_gallery_layout, null);
+        addView (mContainer);
     }
     
     public void setImage(ArrayList<String> imageList){
         if(mContainer != null){
-//            UrlImageViewHelper.setUrlDrawable(singleImage, imageList.get(i), R.drawable.ic_launcher);
+           if(imageList != null && imageList.size() > 0){
+				for (int i = 0; i < imageList.size(); i++) {
+					mItem = (View) mInflater.inflate(R.layout.pre_gallery_layout_item, null);
+					ImageView image = (ImageView) mItem.findViewById(R.id.pregallery_item_image);
+					if (i < 3) { // screenwidth/image.width + 1;
+						UrlImageViewHelper.setUrlDrawable(image,imageList.get(i), R.drawable.ic_launcher);
+					}
+					mRecycle.put(i, image);
+					mContainer.addView(mItem, i, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+					image.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							LogUtil.d("click image");
+						}
+					});
+				}
+           }
         }
     }
 
@@ -103,37 +133,6 @@ public class PreGallery extends HorizontalScrollView implements View.OnTouchList
 
         // Scroll so that the target child is centered
         View targetView = getLinearLayout().getChildAt(targetItem);
-
-//      ImageView centerImage = (ImageView)targetView;
-//      int height=300;//set size of centered image
-//      LinearLayout.LayoutParams flparams = new LinearLayout.LayoutParams(height, height);
-//      centerImage.setLayoutParams(flparams);
-//
-//      //get the image to left of the centered image
-//      if((targetItem-1)>=0){
-//          targetLeft = getLinearLayout().getChildAt(targetItem-1);
-//          leftImage = (ImageView)targetLeft;
-//          int width=250;//set the size of left image
-//          LinearLayout.LayoutParams leftParams = new LinearLayout.LayoutParams(width,width);
-//          leftParams.setMargins(0, 30, 0, 0);
-//          leftImage.setLayoutParams(leftParams);
-//      }
-//
-//      //get the image to right of the centered image
-//      if((targetItem+1)<maxItemCount){
-//          targetRight = getLinearLayout().getChildAt(targetItem+1);
-//          rightImage = (ImageView)targetRight;
-//          int width=250;//set the size of right image
-//          LinearLayout.LayoutParams rightParams = new LinearLayout.LayoutParams(width,width);
-//          rightParams.setMargins(0, 30, 0, 0);
-//          rightImage.setLayoutParams(rightParams);
-//      }
-        
-//        RelativeLayout parentRl=(RelativeLayout)getLinearLayout().getParent().getParent();
-//        if(parentRl!=null){
-//            TextView numTv=(TextView)parentRl.getChildAt(1);
-//            numTv.setText("Image number: "+String.valueOf(targetItem+1)+" enlarged");
-//        }
 
         int targetLeft = targetView.getLeft();
         int childWidth = targetView.getRight() - targetLeft;
@@ -188,6 +187,49 @@ public class PreGallery extends HorizontalScrollView implements View.OnTouchList
         }
 
         return handled;
+    }
+    
+    public void clearAllViews(){
+    	if(mRecycle != null){
+    		mRecycle.clear();
+    	}
+    	
+    	this.removeAllViews();
+    }
+    
+    class RecycleBin {
+        private final SparseArray<View> mScrapHeap = new SparseArray<View>();
+
+        public void put(final int position, final View v) {
+            mScrapHeap.put(position, v);
+        }
+
+        View get(final int position) {
+            final View result = mScrapHeap.get(position);
+            if (result != null) {
+                // System.out.println(" HIT");
+                mScrapHeap.delete(position);
+            } else {
+                // System.out.println(" MISS");
+            }
+            return result;
+        }
+
+        View peek(final int position) {
+            return mScrapHeap.get(position);
+        }
+
+        void clear() {
+            final SparseArray<View> scrapHeap = mScrapHeap;
+            final int count = scrapHeap.size();
+            for (int i = 0; i < count; i++) {
+                final View view = scrapHeap.valueAt(i);
+                if (view != null) {
+                    removeDetachedView(view, false);
+                }
+            }
+            scrapHeap.clear();
+        }
     }
 
 }
