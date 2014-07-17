@@ -14,19 +14,23 @@ import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-public class PreGallery extends HorizontalScrollView implements View.OnTouchListener {
+public class PreviewGallery extends HorizontalScrollView implements View.OnTouchListener {
 
     private Context mContext;
 
-    private static final int SWIPE_PAGE_ON_FACTOR = 10;
+    private static final int SWIPE_PAGE_ON_FACTOR = 60;
     private static final int SCROLL_NEXT = 0;
 
     private int mActiveItem = -1;
+//    private int mUrlPosition = -1;
+//    private int mUrlSize;
 
     private float mPrevScrollX;
 
@@ -34,6 +38,12 @@ public class PreGallery extends HorizontalScrollView implements View.OnTouchList
 
     private int mItemWidth;
     private int mItemCount ;
+    
+    private VelocityTracker mVelocityTracker;
+    private int mTouchSlop;
+    private int mMinimumVelocity;
+    private int mMaxmumVelocity;
+    private final int SNAP_VELOCITY = 10;
     
     View mItem;
     
@@ -61,7 +71,7 @@ public class PreGallery extends HorizontalScrollView implements View.OnTouchList
     	
     };
 
-    public PreGallery(Context context, AttributeSet attrs) {
+    public PreviewGallery(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         mContext=context;
@@ -76,7 +86,10 @@ public class PreGallery extends HorizontalScrollView implements View.OnTouchList
         addView (mContainer);
         mCurrentDisplayPosition = getScreenWidth(mContext)/mItemWidth +1;
         LogUtil.d("mActiveItem= " + mActiveItem + " mCurrentDisplayPosition= " + mCurrentDisplayPosition + " screenWidth= " + getScreenWidth(mContext));
-   
+        final ViewConfiguration viewConfiguration = ViewConfiguration.get(mContext);
+        mTouchSlop = viewConfiguration.getScaledTouchSlop();
+        mMinimumVelocity = viewConfiguration.getMinimumFlingVelocity();
+        mMaxmumVelocity = viewConfiguration.getMaximumFlingVelocity();
     }
     
     public void setImage(ArrayList<String> imageList){
@@ -87,11 +100,12 @@ public class PreGallery extends HorizontalScrollView implements View.OnTouchList
         if(mContainer != null){
            if(imageList != null && imageList.size() > 0){
 				for (int i = 0; i < imageList.size(); i++) {
-					mItem = (View) mInflater.inflate(R.layout.pre_gallery_layout_item, null);
-					ImageView image = (ImageView) mItem.findViewById(R.id.pregallery_item_image);
-					mContainer.addView(mItem, i, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+				    mItem = (View) mInflater.inflate(R.layout.pre_gallery_layout_item, null);
+                    ImageView image = (ImageView) mItem.findViewById(R.id.pregallery_item_image);
+                    mContainer.addView(mItem, i, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
 					
-                    if (i < mCurrentDisplayPosition) { // screenwidth/image.width + 1;
+                    if (i < Math.max(mCurrentDisplayPosition,3)) {
+                       
                         UrlImageViewHelper.setUrlDrawable(image,imageList.get(i), R.drawable.ic_launcher);
                     }
                     mRecycle.put(i, image);
@@ -102,12 +116,38 @@ public class PreGallery extends HorizontalScrollView implements View.OnTouchList
 							LogUtil.d("click image");
 						}
 					});
+                  
 				}
            }
         }
     }
+    
+    
+
+//    @Override
+//    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+////        super.onLayout(changed, l, t, r, b);
+//        int childLeft = -1;
+//        final int count = mItemCount;
+//        //水平从左到右放置
+//        for (int i = 0; i < count; i++) {
+//            final View child = mRecycle.get(i);
+//            if (child.getVisibility() != View.GONE) {
+//                final int childWidth = child.getMeasuredWidth();
+//                if(childLeft==-1)
+//                {
+//                    childLeft=-childWidth;
+//                }
+//                child.layout(childLeft, 0, childLeft + childWidth, child.getMeasuredHeight());
+//                childLeft += childWidth;
+//            }
+//        }
+//    }
 
     private int getMaxItemCount() {
+//        if(mImageList != null){
+//            mUrlSize = mImageList.size();
+//        }
         return ((LinearLayout) getChildAt(0)).getChildCount();
     }
 
@@ -175,33 +215,50 @@ public class PreGallery extends HorizontalScrollView implements View.OnTouchList
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        int x = (int) event.getRawX();
+        int x = (int) event.getX();
 
         boolean handled = false;
+        obtainVelocityTracker(event);
         switch (event.getAction()) {
+        case MotionEvent.ACTION_DOWN:
+            mPrevScrollX = event.getX();
+            break;
         case MotionEvent.ACTION_MOVE:
-            if (mStart) {
-                mPrevScrollX = x;
-                mStart = false;
-            }
+//            int deltX =  (int) (mPrevScrollX - x);
+//            LogUtil.d("deltX= " + deltX + " x= " + x + " mPrevScrollX= " +mPrevScrollX );
+//            mPrevScrollX = x;
+//            int minFactor = mItemWidth / SWIPE_PAGE_ON_FACTOR;
+//            
+//            if (deltX > minFactor) {
+//                if (mActiveItem < getMaxItemCount() - 1) {
+//                    mActiveItem = mActiveItem + 1;
+//                }
+//            }
+//            else if (deltX > minFactor) {
+//                if (mActiveItem > 0) {
+//                    mActiveItem = mActiveItem - 1;
+//                }
+//            }
+//            
+//            scrollToActiveItem();
 
             break;
         case MotionEvent.ACTION_UP:
             mStart = true;
-            int minFactor = mItemWidth / SWIPE_PAGE_ON_FACTOR;
-
-            if ((mPrevScrollX - (float) x) > minFactor) {
+            mVelocityTracker.computeCurrentVelocity(1000, mMaxmumVelocity);
+            int initXVelocity = (int) mVelocityTracker.getXVelocity();
+            
+            if(initXVelocity > SNAP_VELOCITY){//足够的才能向左 
+                if (mActiveItem > 0) {
+                    mActiveItem = mActiveItem - 1;
+                }
+            }else if(initXVelocity < -SNAP_VELOCITY){//足够的才能向右 
                 if (mActiveItem < getMaxItemCount() - 1) {
                     mActiveItem = mActiveItem + 1;
                 }
             }
-            else if (((float) x - mPrevScrollX) > minFactor) {
-                if (mActiveItem > 0) {
-                    mActiveItem = mActiveItem - 1;
-                }
-            }
-            LogUtil.d(" mActiveItem7= " + mActiveItem);
             scrollToActiveItem();
+            releaseVelocityTracker();
 
             handled = true;
             break;
@@ -211,11 +268,30 @@ public class PreGallery extends HorizontalScrollView implements View.OnTouchList
     }
     
     
+    private void obtainVelocityTracker(MotionEvent event) {
+        if (mVelocityTracker == null) {
+            mVelocityTracker = VelocityTracker.obtain();
+        }
+        mVelocityTracker.addMovement(event);
+    }
+
+    private void releaseVelocityTracker() {
+        if (mVelocityTracker != null) {
+            mVelocityTracker.recycle();
+            mVelocityTracker = null;
+        }
+    }
+    
     private int getScreenWidth(Context context){
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager mWindowManage = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         mWindowManage.getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels;
+    }
+    
+    @Override
+    public void fling(int velocityX) {
+        super.fling(velocityX * 3);
     }
     
     public void clearAllViews(){

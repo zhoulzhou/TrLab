@@ -7,16 +7,17 @@ import com.example.trlab.utils.LogUtil;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 
 public class TestActivity extends Activity{
 	private ArrayList<String> imageList = new ArrayList<String>();
-	private PreGallery gallery;
+	private PreviewGallery gallery;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pre_layout_test);
-        gallery = (PreGallery) findViewById(R.id.pregaller);
+        gallery = (PreviewGallery) findViewById(R.id.pregaller);
         
 //        imageList.add("http://aswegetmarried.in/images/illustrations/calendar.png");
 //		imageList.add("http://aswegetmarried.in/images/illustrations/time.png");
@@ -41,6 +42,11 @@ public class TestActivity extends Activity{
             gallery.clearAllViews();
         }
     }
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        // TODO Auto-generated method stub
+//        return false;
+//    }
     
     
     
