@@ -4,6 +4,12 @@
     android:background="#f2f2f2"
     android:layout_margin="10dp"
     android:layout_height="wrap_content" >
+  <RelativeLayout 
+    android:id="@+id/gallery_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    
 
   <com.example.trlab.selfgallery.PreviewGallery 
       android:id="@+id/pregaller"
@@ -13,5 +19,5 @@
       >
       
   </com.example.trlab.selfgallery.PreviewGallery>
-
+ </RelativeLayout>
 </RelativeLayout>

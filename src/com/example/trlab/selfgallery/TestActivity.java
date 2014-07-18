@@ -8,15 +8,20 @@ import com.example.trlab.utils.LogUtil;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.RelativeLayout;
 
 public class TestActivity extends Activity{
 	private ArrayList<String> imageList = new ArrayList<String>();
 	private PreviewGallery gallery;
+	private RelativeLayout mGalleryContainer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pre_layout_test);
+        mGalleryContainer = (RelativeLayout) findViewById(R.id.gallery_container);
         gallery = (PreviewGallery) findViewById(R.id.pregaller);
         
 //        imageList.add("http://aswegetmarried.in/images/illustrations/calendar.png");
@@ -32,6 +37,15 @@ public class TestActivity extends Activity{
 		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/0282b80613d44dd4b0ddbd0645e4920e.png.short.h1440.webp");
 		
 		gallery.setImage(imageList);
+		
+		mGalleryContainer.setOnTouchListener(new OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // dispatch the events to the ViewPager, to solve the problem that we can swipe only the middle view.
+                return gallery.dispatchTouchEvent(event);
+            }
+        });
     }
     @Override
     protected void onDestroy() {
@@ -42,11 +56,11 @@ public class TestActivity extends Activity{
             gallery.clearAllViews();
         }
     }
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        // TODO Auto-generated method stub
-//        return false;
-//    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        // TODO Auto-generated method stub
+        return gallery.dispatchTouchEvent(ev);
+    }
     
     
     
