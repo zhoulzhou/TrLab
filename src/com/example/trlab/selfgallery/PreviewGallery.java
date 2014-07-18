@@ -3,6 +3,7 @@ package com.example.trlab.selfgallery;
 import java.util.ArrayList;
 
 import com.example.trlab.R;
+import com.example.trlab.utils.DisplayUtil;
 import com.example.trlab.utils.LogUtil;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
@@ -36,8 +37,10 @@ public class PreviewGallery extends HorizontalScrollView implements View.OnTouch
 
     private boolean mStart;
 
-    private int mItemWidth;
     private int mItemCount ;
+    
+    private int mItemWidth = DisplayUtil.dpToPx(223);
+    private int mItemHeight = DisplayUtil.dpToPx(392);
     
     private VelocityTracker mVelocityTracker;
     private int mTouchSlop;
@@ -98,15 +101,15 @@ public class PreviewGallery extends HorizontalScrollView implements View.OnTouch
         }
         mImageList.addAll(imageList);
         if(mContainer != null){
-           if(imageList != null && imageList.size() > 0){
-				for (int i = 0; i < imageList.size(); i++) {
+           if(mImageList != null && mImageList.size() > 0){
+				for (int i = 0; i < mImageList.size(); i++) {
 				    mItem = (View) mInflater.inflate(R.layout.pre_gallery_layout_item, null);
                     ImageView image = (ImageView) mItem.findViewById(R.id.pregallery_item_image);
-                    mContainer.addView(mItem, i, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+                    mContainer.addView(mItem, i, new LinearLayout.LayoutParams(mItemWidth,mItemHeight));
 
                     if (i < Math.max(mCurrentDisplayPosition,3)) {
                        
-                        UrlImageViewHelper.setUrlDrawable(image,imageList.get(i), R.drawable.ic_launcher);
+                        UrlImageViewHelper.setUrlDrawable(image,mImageList.get(i), R.drawable.ic_launcher);
                     }
                     mRecycle.put(i, image);
 					image.setOnClickListener(new OnClickListener() {
