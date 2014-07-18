@@ -103,7 +103,7 @@ public class PreviewGallery extends HorizontalScrollView implements View.OnTouch
 				    mItem = (View) mInflater.inflate(R.layout.pre_gallery_layout_item, null);
                     ImageView image = (ImageView) mItem.findViewById(R.id.pregallery_item_image);
                     mContainer.addView(mItem, i, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-					
+
                     if (i < Math.max(mCurrentDisplayPosition,3)) {
                        
                         UrlImageViewHelper.setUrlDrawable(image,imageList.get(i), R.drawable.ic_launcher);
