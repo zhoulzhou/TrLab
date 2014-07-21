@@ -13,22 +13,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.SparseArray;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewDebug;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
-public class PreviewGallery extends HorizontalScrollView {
+public class TryGallery extends LinearLayout {
 
     private Context mContext;
 
@@ -63,48 +60,58 @@ public class PreviewGallery extends HorizontalScrollView {
     
     private RecycleBin mRecycle = new RecycleBin();
     
-    private Scroller mScroller;
-    
     private Handler mHandler = new Handler(){
 
-		@Override
-		public void handleMessage(Message msg) {
-			int what = msg.what;
-			if(SCROLL_NEXT == what){
-			    if(mActiveItem >= mCurrentDisplayPosition && mActiveItem < mItemCount){
-			        ImageView image = (ImageView) mRecycle.get(mActiveItem);
-			        if(image != null){
-			          UrlImageViewHelper.setUrlDrawable(image,mImageList.get(mActiveItem), R.drawable.ic_launcher);
-			        }
-			    }
-			}
-		}
-    	
+        @Override
+        public void handleMessage(Message msg) {
+            int what = msg.what;
+            if(SCROLL_NEXT == what){
+                if(mActiveItem >= mCurrentDisplayPosition && mActiveItem < mItemCount){
+                    ImageView image = (ImageView) mRecycle.get(mActiveItem);
+                    if(image != null){
+                      UrlImageViewHelper.setUrlDrawable(image,mImageList.get(mActiveItem), R.drawable.ic_launcher);
+                    }
+                }
+            }
+        }
+        
     };
+    
+    public TryGallery(Context context){
+        super(context);
 
-    public PreviewGallery(Context context, AttributeSet attrs) {
+        mContext=context;
+        mItemWidth = 900; // or whatever your item width is.
+        mInflater = LayoutInflater.from(mContext);
+//        setOnTouchListener(this);
+        mScroller = new Scroller(context); 
+        initViews();
+    }
+
+    public TryGallery(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         mContext=context;
         mItemWidth = 900; // or whatever your item width is.
         mInflater = LayoutInflater.from(mContext);
 //        setOnTouchListener(this);
-        mScroller = new Scroller(context);
+        mScroller = new Scroller(context); 
         initViews();
     }
     
-    public void smoothScrollT(int fx, int fy) {  
+    private Scroller mScroller; 
+  //调用此方法滚动到目标位置  
+    public void smoothScrollTo(int fx, int fy) {  
         int dx = fx - mScroller.getFinalX();  
         int dy = fy - mScroller.getFinalY();  
-        smoothScrollB(dx, dy);  
+        smoothScrollBy(dx, dy);  
     }  
   
     //调用此方法设置滚动的相对偏移  
-    public void smoothScrollB(int dx, int dy) {  
+    public void smoothScrollBy(int dx, int dy) {  
   
         //设置mScroller的滚动偏移量  
-//        mScroller.startScroll(mScroller.getFinalX(), mScroller.getFinalY(), dx, dy);  
-        mScroller.startScroll(getScrollX(), 0, dx, 0,Math.abs(dx) * 2);
+        mScroller.startScroll(mScroller.getFinalX(), mScroller.getFinalY(), dx, dy);  
         invalidate();//这里必须调用invalidate()才能保证computeScroll()会被调用，否则不一定会刷新界面，看不到滚动效果  
     }  
       
@@ -122,6 +129,7 @@ public class PreviewGallery extends HorizontalScrollView {
         }  
         super.computeScroll();  
     }  
+
     
     private void initViews(){
         mContainer =   (LinearLayout) mInflater.inflate(R.layout.pre_gallery_layout, null);
@@ -141,8 +149,8 @@ public class PreviewGallery extends HorizontalScrollView {
         mImageList.addAll(imageList);
         if(mContainer != null){
            if(mImageList != null && mImageList.size() > 0){
-				for (int i = 0; i < mImageList.size(); i++) {
-				    mItem = (View) mInflater.inflate(R.layout.pre_gallery_layout_item, null);
+                for (int i = 0; i < mImageList.size(); i++) {
+                    mItem = (View) mInflater.inflate(R.layout.pre_gallery_layout_item, null);
                     ImageView image = (ImageView) mItem.findViewById(R.id.pregallery_item_image);
                     mContainer.addView(mItem, i, new LinearLayout.LayoutParams(mItemWidth,mItemHeight));
 
@@ -151,15 +159,15 @@ public class PreviewGallery extends HorizontalScrollView {
                         UrlImageViewHelper.setUrlDrawable(image,mImageList.get(i), R.drawable.ic_launcher);
                     }
                     mRecycle.put(i, image);
-					image.setOnClickListener(new OnClickListener() {
+                    image.setOnClickListener(new OnClickListener() {
 
-						@Override
-						public void onClick(View v) {
-							LogUtil.d("click image");
-						}
-					});
+                        @Override
+                        public void onClick(View v) {
+                            LogUtil.d("click image");
+                        }
+                    });
                   
-				}
+                }
            }
         }
     }
@@ -219,11 +227,6 @@ public class PreviewGallery extends HorizontalScrollView {
 //            scrollToActiveItem();
 //        }
 //    }
-    
-    private int getCenterItem(){
-        int targetItem = Math.min(mItemCount - 1, mActiveItem);
-        return targetItem = Math.max(0, targetItem);
-    }
 
     /**
      * Scrolls the list view to the currently active child.
@@ -248,11 +251,7 @@ public class PreviewGallery extends HorizontalScrollView {
         int width = getWidth() - getPaddingLeft() - getPaddingRight();
         int targetScroll = targetLeft - ((width - childWidth) / 2);
 
-//        smoothScrollT(targetScroll, 0);
-       mScroller.startScroll(getScrollX(), 0, targetScroll, 0,Math.abs(targetScroll) * 2);
-        
-        //此时需要手动刷新View 否则没效果
-        invalidate();
+        smoothScrollTo(targetScroll, 0);
     }
 
     /**
@@ -340,19 +339,14 @@ public class PreviewGallery extends HorizontalScrollView {
         return dm.widthPixels;
     }
     
-    @Override
-    public void fling(int velocityX) {
-        super.fling(velocityX * 3);
-    }
-    
     public void clearAllViews(){
         mHandler.removeCallbacksAndMessages(null);
         UrlImageViewHelper.cleanup(mContext);
-    	if(mRecycle != null){
-    		mRecycle.clear();
-    	}
-    	
-    	this.removeAllViews();
+        if(mRecycle != null){
+            mRecycle.clear();
+        }
+        
+        this.removeAllViews();
     }
     
     class RecycleBin {
@@ -406,64 +400,50 @@ public class PreviewGallery extends HorizontalScrollView {
       
 //    @Override  
 //    public boolean onTouchEvent(MotionEvent ev) {  
-//        if (inner == null) {  
-//            return super.onTouchEvent(ev);  
-//        } else {  
+////        if (inner == null) {  
+////            return super.onTouchEvent(ev);  
+////        } else {  
 //            commOnTouchEvent(ev);  
-//        }  
+////        }  
 //  
 //        return super.onTouchEvent(ev);  
 //    }  
   
-    public void commOnTouchEvent(MotionEvent ev) {
-        obtainVelocityTracker(ev);
-        int action = ev.getAction();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN :
-                x = ev.getX();
-                break;
-            case MotionEvent.ACTION_UP :
-
-                mVelocityTracker.computeCurrentVelocity(1000, mMaxmumVelocity);
-                int initXVelocity = (int) mVelocityTracker.getXVelocity();
-                if (initXVelocity > SNAP_VELOCITY) {
-                    if (mActiveItem > 0) {
-                        mActiveItem = mActiveItem - 1;
-                    }
-                } else if (initXVelocity < -SNAP_VELOCITY) {
-                    if (mActiveItem < getMaxItemCount() - 1) {
-                        mActiveItem = mActiveItem + 1;
-                    }
-                }
-                scrollToActiveItem();
-
-                if (isNeedAnimation()) {
-                    animation();
-                }
-
-                break;
-            case MotionEvent.ACTION_MOVE :
-                final float preX = x;
-                float nowX = ev.getX();
-                int deltaX = (int) (preX - nowX);
-                // 滚动   
-                smoothScrollBy(deltaX, 0);
-
-                x = nowX;
-                // 当滚动到最左或者最右时就不会再滚动，这时移动布局   
-                //            if (isNeedMove()) {  
-                //                if (normal.isEmpty()) {  
-                //                    // 保存正常的布局位置   
-                //                    normal.set(inner.getLeft(), inner.getTop(), inner.getRight(), inner.getBottom());  
-                //                }  
-                //                // 移动布局   
-                //                inner.layout(inner.getLeft() - deltaX/2, inner.getTop() , inner.getRight()- deltaX/2, inner.getBottom() );  
-                //            }  
-                break;
-
-            default:
-                break;
-        }
+    public void commOnTouchEvent(MotionEvent ev) {  
+        int action = ev.getAction();  
+        switch (action) {  
+        case MotionEvent.ACTION_DOWN:  
+            x = ev.getX();  
+            break;  
+        case MotionEvent.ACTION_UP:  
+  
+            if (isNeedAnimation()) {  
+                animation();  
+            }  
+  
+            break;  
+        case MotionEvent.ACTION_MOVE:  
+            final float preX = x;  
+            float nowX = ev.getX();  
+            int deltaX = (int) (preX - nowX);  
+            // 滚动   
+            smoothScrollBy(deltaX, 0);  
+  
+            x = nowX;  
+            // 当滚动到最左或者最右时就不会再滚动，这时移动布局   
+//            if (isNeedMove()) {  
+//                if (normal.isEmpty()) {  
+//                    // 保存正常的布局位置   
+//                    normal.set(inner.getLeft(), inner.getTop(), inner.getRight(), inner.getBottom());  
+//                }  
+//                // 移动布局   
+//                inner.layout(inner.getLeft() - deltaX/2, inner.getTop() , inner.getRight()- deltaX/2, inner.getBottom() );  
+//            }  
+            break;  
+  
+        default:  
+            break;  
+        }  
     }  
   
     // 开启动画移动   
@@ -489,90 +469,5 @@ public class PreviewGallery extends HorizontalScrollView {
         }  
         return false;  
     }  
-    
-//    private float mLastionMotionX = 0 ;
-//public boolean onTouchEvent(MotionEvent event){
-//        
-//        if (mVelocityTracker == null) {
-//            
-//            
-//            mVelocityTracker = VelocityTracker.obtain();
-//        }
-//        
-//        mVelocityTracker.addMovement(event);
-//        
-//        super.onTouchEvent(event);
-//        
-//        //手指位置地点
-//        float x = event.getX();
-//        float y = event.getY();
-//        
-//        
-//        switch(event.getAction()){
-//        case MotionEvent.ACTION_DOWN:
-//            //如果屏幕的动画还没结束，你就按下了，我们就结束该动画
-//            if(mScroller != null){
-//                if(!mScroller.isFinished()){
-//                    mScroller.abortAnimation();
-//                }
-//            }
-//            
-//            mLastionMotionX = x ;
-//            break ;
-//        case MotionEvent.ACTION_MOVE:
-//            int detaX = (int)(mLastionMotionX - x );
-//            scrollBy(detaX, 0);
-////            
-////            Log.e(TAG, "--- MotionEvent.ACTION_MOVE--> detaX is " + detaX );
-//            mLastionMotionX = x ;
-//            
-//            break ;
-//        case MotionEvent.ACTION_UP:
-//            
-//            final VelocityTracker velocityTracker = mVelocityTracker  ;
-//            velocityTracker.computeCurrentVelocity(1000);
-//            
-//            int velocityX = (int) velocityTracker.getXVelocity() ;
-//            
-////            Log.e(TAG , "---velocityX---" + velocityX);
-//            
-//            //滑动速率达到了一个标准(快速向右滑屏，返回上一个屏幕) 马上进行切屏处理
-//            if (velocityX > SNAP_VELOCITY && mActiveItem > 0) {
-//                // Fling enough to move left
-////                Log.e(TAG, "snap left");
-//                if (mActiveItem > 0) {
-//                    mActiveItem = mActiveItem - 1;
-//                }
-//                
-//            }
-//            //快速向左滑屏，返回下一个屏幕)
-//            else if(velocityX < -SNAP_VELOCITY ){
-////                Log.e(TAG, "snap right");
-//                
-//                if (mActiveItem < getMaxItemCount() - 1) {
-//                    mActiveItem = mActiveItem + 1;
-//                }
-//            }
-//            //以上为快速移动的 ，强制切换屏幕
-//            else{
-//                //我们是缓慢移动的，因此先判断是保留在本屏幕还是到下一屏幕
-////                snapToDestination();
-//            }
-//            scrollToActiveItem();
-//            if (mVelocityTracker != null) {
-//                mVelocityTracker.recycle();
-//                mVelocityTracker = null;
-//            }
-//            
-////            mTouchState = TOUCH_STATE_REST ;
-//            
-//            break;
-//        case MotionEvent.ACTION_CANCEL:
-////            mTouchState = TOUCH_STATE_REST ;
-//            break;
-//        }
-//        
-//        return true ;
-//    }
 
 }
