@@ -7,6 +7,7 @@ import com.example.trlab.selfgallery.HOverScrollList;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 public class TestActivity extends Activity{
     private HorizontalListView mHlvCustomListWithDividerAndFadingEdge;
@@ -19,9 +20,9 @@ public class TestActivity extends Activity{
         
         setContentView(R.layout.hlv_test_layout);
         
-        hoScroll = (HOverScrollList) findViewById(R.id.hoscroll);
+//        hoScroll = (HOverScrollList) findViewById(R.id.hoscroll);
         
-        mHlvCustomListWithDividerAndFadingEdge = new HorizontalListView(this);
+        mHlvCustomListWithDividerAndFadingEdge = (HorizontalListView) findViewById(R.id.hoscroll);
         
         
         imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/c8f0d103497d424899b74f934d9cedaa.png.short.h1440.webp");
@@ -32,11 +33,14 @@ public class TestActivity extends Activity{
         imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/0282b80613d44dd4b0ddbd0645e4920e.png.short.h1440.webp");
         
         CustomArrayAdapter adapter = new CustomArrayAdapter(this, imageList);
+        
+        ImageView image = new ImageView(this);
+        image.setImageResource(R.drawable.ic_launcher);
 
         // Assign adapter to HorizontalListView
         mHlvCustomListWithDividerAndFadingEdge.setAdapter(adapter);
         
-        hoScroll.setView(mHlvCustomListWithDividerAndFadingEdge);
+//        hoScroll.setView(mHlvCustomListWithDividerAndFadingEdge);
     }
     
 }

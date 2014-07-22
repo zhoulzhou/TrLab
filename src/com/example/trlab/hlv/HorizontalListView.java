@@ -1066,7 +1066,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
             setCurrentScrollState(OnScrollStateChangedListener.ScrollState.SCROLL_STATE_TOUCH_SCROLL);
             unpressTouchedChild();
             mNextX += (int) distanceX;
-            updateOverscrollAnimation(Math.round(distanceX));
+//            updateOverscrollAnimation(Math.round(distanceX));
             requestLayout();
 
             return true;

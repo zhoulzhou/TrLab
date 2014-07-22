@@ -125,11 +125,27 @@ public class HOverScrollList extends HorizontalScrollView {
         return super.onTouchEvent(ev);
     }
 
-    @Override
+	@Override
+	protected int computeHorizontalScrollOffset() {
+		// TODO Auto-generated method stub
+		int position = getScrollX() / mItemWidth  + 1;
+		LogUtil.d("position= " + position );
+		return super.computeHorizontalScrollOffset();
+	}
+
+	// 没用？？ 应该是mScroller没有调用startscroll();
+	@Override
     public void computeScroll() {
-        super.computeScroll();
+        
         if (mScroller.computeScrollOffset()) {
+        	scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+        	int currX = mScroller.getCurrX();
+        	int position = currX / mItemWidth + 1;
+        	LogUtil.d("position= " + position);
+        	postInvalidate();
         }
+        
+        super.computeScroll();
     }
     
     public void commOnTouchEvent(MotionEvent ev) {
@@ -148,8 +164,8 @@ public class HOverScrollList extends HorizontalScrollView {
             final float preX = x;
             float nowX = ev.getX();
             int deltaX = (int) ((preX - nowX) / damk);
-            // 滚动
-            scrollBy(deltaX, 0);
+            // 滚动   本身有滑动处理 这个是没用的
+//            scrollBy(deltaX, 0);
 
             x = nowX;
             // 当滚动到最上或者最下时就不会再滚动，这时移动布局
