@@ -1,19 +1,29 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:widget="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <LinearLayout
+    <com.example.trlab.os.HOverScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-        <com.example.trlab.hlv.HorizontalListView
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" 
+         >
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" 
+            >
+            
+            <com.example.trlab.hlv.HorizontalListView
             android:id="@+id/hlvCustomListWithDividerAndFadingEdge"
             android:layout_width="match_parent"
             android:layout_height="392dp"
-            
+            android:visibility="visible"
             />
-    </LinearLayout>
+        </LinearLayout>
+    </com.example.trlab.os.HOverScrollView>
+    
+    
 
-</ScrollView>
+</LinearLayout>

@@ -4,12 +4,20 @@
     android:background="#f2f2f2"
     android:layout_margin="10dp"
     android:layout_height="wrap_content" >
-
-  <com.example.trlab.selfgallery.PreviewGallery 
+    <com.example.trlab.os.OverScrollView 
+        android:id="@+id/osview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        
+        <com.example.trlab.selfgallery.PreviewGallery 
       android:id="@+id/pregaller"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       >
       
   </com.example.trlab.selfgallery.PreviewGallery>
+    </com.example.trlab.os.OverScrollView>
+
+
 </RelativeLayout>

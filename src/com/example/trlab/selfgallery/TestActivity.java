@@ -30,24 +30,24 @@ public class TestActivity extends Activity{
 //		
 		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/c8f0d103497d424899b74f934d9cedaa.png.short.h1440.webp");
 		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/9fafffbb1a194de7b568debdd7aa9708.png.short.h1440.webp");
-		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/854fe1d9332748859bddfb4784cb0921.png.short.h1440.webp");
-		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/f30c2a52878146d099085217b8f78e45.png.short.h1440.webp");
-		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/d0acc76b7a3d4c129738ebef9665571c.png.short.h1440.webp");
-		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/0282b80613d44dd4b0ddbd0645e4920e.png.short.h1440.webp");
-		
-		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/c8f0d103497d424899b74f934d9cedaa.png.short.h1440.webp");
-        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/9fafffbb1a194de7b568debdd7aa9708.png.short.h1440.webp");
-        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/854fe1d9332748859bddfb4784cb0921.png.short.h1440.webp");
-        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/f30c2a52878146d099085217b8f78e45.png.short.h1440.webp");
-        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/d0acc76b7a3d4c129738ebef9665571c.png.short.h1440.webp");
-        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/0282b80613d44dd4b0ddbd0645e4920e.png.short.h1440.webp");
-        
-        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/c8f0d103497d424899b74f934d9cedaa.png.short.h1440.webp");
-        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/9fafffbb1a194de7b568debdd7aa9708.png.short.h1440.webp");
-        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/854fe1d9332748859bddfb4784cb0921.png.short.h1440.webp");
-        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/f30c2a52878146d099085217b8f78e45.png.short.h1440.webp");
-        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/d0acc76b7a3d4c129738ebef9665571c.png.short.h1440.webp");
-        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/0282b80613d44dd4b0ddbd0645e4920e.png.short.h1440.webp");
+//		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/854fe1d9332748859bddfb4784cb0921.png.short.h1440.webp");
+//		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/f30c2a52878146d099085217b8f78e45.png.short.h1440.webp");
+//		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/d0acc76b7a3d4c129738ebef9665571c.png.short.h1440.webp");
+//		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/0282b80613d44dd4b0ddbd0645e4920e.png.short.h1440.webp");
+//		
+//		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/c8f0d103497d424899b74f934d9cedaa.png.short.h1440.webp");
+//        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/9fafffbb1a194de7b568debdd7aa9708.png.short.h1440.webp");
+//        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/854fe1d9332748859bddfb4784cb0921.png.short.h1440.webp");
+//        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/f30c2a52878146d099085217b8f78e45.png.short.h1440.webp");
+//        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/d0acc76b7a3d4c129738ebef9665571c.png.short.h1440.webp");
+//        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/0282b80613d44dd4b0ddbd0645e4920e.png.short.h1440.webp");
+//        
+//        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/c8f0d103497d424899b74f934d9cedaa.png.short.h1440.webp");
+//        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/9fafffbb1a194de7b568debdd7aa9708.png.short.h1440.webp");
+//        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/854fe1d9332748859bddfb4784cb0921.png.short.h1440.webp");
+//        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/f30c2a52878146d099085217b8f78e45.png.short.h1440.webp");
+//        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/d0acc76b7a3d4c129738ebef9665571c.png.short.h1440.webp");
+//        imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/0282b80613d44dd4b0ddbd0645e4920e.png.short.h1440.webp");
 		
 		gallery.setImage(imageList);
     }

@@ -404,16 +404,16 @@ public class PreviewGallery extends HorizontalScrollView {
         System.out.println("getChildCount():" + getChildCount());  
     }  
       
-//    @Override  
-//    public boolean onTouchEvent(MotionEvent ev) {  
-//        if (inner == null) {  
-//            return super.onTouchEvent(ev);  
-//        } else {  
-//            commOnTouchEvent(ev);  
-//        }  
-//  
-//        return super.onTouchEvent(ev);  
-//    }  
+    @Override  
+    public boolean onTouchEvent(MotionEvent ev) {  
+        if (inner == null) {  
+            return super.onTouchEvent(ev);  
+        } else {  
+            commOnTouchEvent(ev);  
+        }  
+  
+        return super.onTouchEvent(ev);  
+    }  
   
     public void commOnTouchEvent(MotionEvent ev) {
         obtainVelocityTracker(ev);
@@ -424,18 +424,18 @@ public class PreviewGallery extends HorizontalScrollView {
                 break;
             case MotionEvent.ACTION_UP :
 
-                mVelocityTracker.computeCurrentVelocity(1000, mMaxmumVelocity);
-                int initXVelocity = (int) mVelocityTracker.getXVelocity();
-                if (initXVelocity > SNAP_VELOCITY) {
-                    if (mActiveItem > 0) {
-                        mActiveItem = mActiveItem - 1;
-                    }
-                } else if (initXVelocity < -SNAP_VELOCITY) {
-                    if (mActiveItem < getMaxItemCount() - 1) {
-                        mActiveItem = mActiveItem + 1;
-                    }
-                }
-                scrollToActiveItem();
+//                mVelocityTracker.computeCurrentVelocity(1000, mMaxmumVelocity);
+//                int initXVelocity = (int) mVelocityTracker.getXVelocity();
+//                if (initXVelocity > SNAP_VELOCITY) {
+//                    if (mActiveItem > 0) {
+//                        mActiveItem = mActiveItem - 1;
+//                    }
+//                } else if (initXVelocity < -SNAP_VELOCITY) {
+//                    if (mActiveItem < getMaxItemCount() - 1) {
+//                        mActiveItem = mActiveItem + 1;
+//                    }
+//                }
+//                scrollToActiveItem();
 
                 if (isNeedAnimation()) {
                     animation();
@@ -445,20 +445,22 @@ public class PreviewGallery extends HorizontalScrollView {
             case MotionEvent.ACTION_MOVE :
                 final float preX = x;
                 float nowX = ev.getX();
-                int deltaX = (int) (preX - nowX);
+//                int deltaX = (int) (preX - nowX);
+                int deltaX = (int) (nowX - preX);
                 // 滚动   
                 smoothScrollBy(deltaX, 0);
 
                 x = nowX;
-                // 当滚动到最左或者最右时就不会再滚动，这时移动布局   
-                //            if (isNeedMove()) {  
-                //                if (normal.isEmpty()) {  
-                //                    // 保存正常的布局位置   
-                //                    normal.set(inner.getLeft(), inner.getTop(), inner.getRight(), inner.getBottom());  
-                //                }  
-                //                // 移动布局   
-                //                inner.layout(inner.getLeft() - deltaX/2, inner.getTop() , inner.getRight()- deltaX/2, inner.getBottom() );  
-                //            }  
+//                 当滚动到最左或者最右时就不会再滚动，这时移动布局   
+                if (isNeedMove()) {
+                    if (normal.isEmpty()) {
+                        // 保存正常的布局位置   
+                        normal.set(inner.getLeft(), inner.getTop(), inner.getRight(), inner.getBottom());
+                    }
+                    // 移动布局   
+                    inner.layout(
+                        inner.getLeft() - deltaX / 2, inner.getTop(), inner.getRight() - deltaX / 2, inner.getBottom());
+                }
                 break;
 
             default:
@@ -489,6 +491,44 @@ public class PreviewGallery extends HorizontalScrollView {
         }  
         return false;  
     }  
+    
+//    int MAX_SCROLL_HEIGHT = DisplayUtil.WIDTH;
+//    protected boolean overScrollBy(int deltaX, int deltaY, int scrollX,
+//        int scrollY, int scrollRangeX, int scrollRangeY,
+//        int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
+//
+//       int newScrollX = scrollX + deltaX;
+//
+//       int newScrollY = scrollY + deltaY;
+//
+//       // Clamp values if at the limits and record
+//       final int left = -maxOverScrollX - MAX_SCROLL_HEIGHT;
+//       final int right = maxOverScrollX + scrollRangeX + MAX_SCROLL_HEIGHT;
+//       final int top = -maxOverScrollY;
+//       final int bottom = maxOverScrollY + scrollRangeY;
+//
+//       boolean clampedX = false;
+//       if (newScrollX > right) {
+//        newScrollX = right;
+//        clampedX = true;
+//       } else if (newScrollX < left) {
+//        newScrollX = left;
+//        clampedX = true;
+//       }
+//
+//       boolean clampedY = false;
+//       if (newScrollY > bottom) {
+//        newScrollY = bottom;
+//        clampedY = true;
+//       } else if (newScrollY < top) {
+//        newScrollY = top;
+//        clampedY = true;
+//       }
+//
+//       onOverScrolled(newScrollX, newScrollY, clampedX, clampedY);
+//
+//       return clampedX || clampedY;
+//      }
     
 //    private float mLastionMotionX = 0 ;
 //public boolean onTouchEvent(MotionEvent event){
