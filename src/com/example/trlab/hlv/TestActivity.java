@@ -3,6 +3,7 @@ package com.example.trlab.hlv;
 import java.util.ArrayList;
 
 import com.example.trlab.R;
+import com.example.trlab.selfgallery.HOverScrollList;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 public class TestActivity extends Activity{
     private HorizontalListView mHlvCustomListWithDividerAndFadingEdge;
     private ArrayList<String> imageList = new ArrayList<String>();
+    HOverScrollList hoScroll;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +19,9 @@ public class TestActivity extends Activity{
         
         setContentView(R.layout.hlv_test_layout);
         
-        mHlvCustomListWithDividerAndFadingEdge = (HorizontalListView) findViewById(R.id.hlvCustomListWithDividerAndFadingEdge);
+        hoScroll = (HOverScrollList) findViewById(R.id.hoscroll);
+        
+        mHlvCustomListWithDividerAndFadingEdge = new HorizontalListView(this);
         
         
         imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/c8f0d103497d424899b74f934d9cedaa.png.short.h1440.webp");
@@ -31,6 +35,8 @@ public class TestActivity extends Activity{
 
         // Assign adapter to HorizontalListView
         mHlvCustomListWithDividerAndFadingEdge.setAdapter(adapter);
+        
+        hoScroll.setView(mHlvCustomListWithDividerAndFadingEdge);
     }
     
 }

@@ -217,6 +217,22 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
             HoneycombPlus.setFriction(mFlingTracker, FLING_FRICTION);
         }
     }
+    
+    public HorizontalListView(Context context) {
+        super(context);
+        mEdgeGlowLeft = new EdgeEffectCompat(context);
+        mEdgeGlowRight = new EdgeEffectCompat(context);
+        mGestureDetector = new GestureDetector(context, mGestureListener);
+        bindGestureDetector();
+        initView();
+//        retrieveXmlConfiguration(context, attrs);
+        setWillNotDraw(false);
+
+        // If the OS version is high enough then set the friction on the fling tracker */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            HoneycombPlus.setFriction(mFlingTracker, FLING_FRICTION);
+        }
+    }
 
     /** Registers the gesture detector to receive gesture notifications for this view */
     private void bindGestureDetector() {
