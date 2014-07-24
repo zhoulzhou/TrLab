@@ -48,7 +48,7 @@ public class HOverScrollList extends HorizontalScrollView {
         super(context, attrs);
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
-        initViews();
+//        initViews();
     }
     
     private void initViews(){
