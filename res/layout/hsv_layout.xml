@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <com.example.trlab.selfgallery.XiaHorizontalScrollView1
+    <com.example.trlab.selfgallery.XiaHorizontalScrollView
         android:id="@+id/hsv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,6 +14,6 @@
             android:id="@+id/movieLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </com.example.trlab.selfgallery.XiaHorizontalScrollView1>
+    </com.example.trlab.selfgallery.XiaHorizontalScrollView>
 
 </LinearLayout>
