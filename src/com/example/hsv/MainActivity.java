@@ -27,15 +27,8 @@ import com.example.trlab.R;
  * 
  */
 public class MainActivity extends Activity {
-    private String UPDATE_IMAGE_ACTION = "update";
 	private HSVLayout movieLayout = null;
 	private HSVAdapter adapter = null;
-	private IntentFilter intentFilter = null;
-	private BroadcastReceiver receiver = null;
-	private int nCount = 0;
-	// pic in the drawable
-	private Integer[] images = { R.drawable.ic_launcher, R.drawable.ic_launcher,
-			R.drawable.ic_launcher, R.drawable.ic_launcher };
 	
 	private ArrayList<String> imageList = new ArrayList<String>();
 
@@ -74,30 +67,8 @@ public class MainActivity extends Activity {
 		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/d0acc76b7a3d4c129738ebef9665571c.png.short.h1440.webp");
 		imageList.add("http://storefs1.wanyol.com:8090/uploadFiles/PImages/201407/11/0282b80613d44dd4b0ddbd0645e4920e.png.short.h1440.webp");
 //		
-		
-		
-//		for (int i = 0; i < images.length; i++) {
-//			Map<String, Object> map = new HashMap<String, Object>();
-//			map.put("image", images[i]);
-//			// map.put("image", getResources().getDrawable(images[i]));
-//			map.put("index", (i+1));
-//			adapter.addObject(map);
-//		}
 		adapter.addObject(imageList);
 		movieLayout.setAdapter(adapter);
 	}
-
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-	}
-
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-	}
-
 
 }

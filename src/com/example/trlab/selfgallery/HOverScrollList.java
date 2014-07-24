@@ -163,17 +163,19 @@ public class HOverScrollList extends HorizontalScrollView {
         case MotionEvent.ACTION_MOVE:
             final float preX = x;
             float nowX = ev.getX();
-            int deltaX = (int) ((preX - nowX) / damk);
+            int deltaX = (int) ((preX - nowX));
             // 滚动   本身有滑动处理 这个是没用的
 //            scrollBy(deltaX, 0);
 
             x = nowX;
             // 当滚动到最上或者最下时就不会再滚动，这时移动布局
+            LogUtil.d("isNeedMove " + isNeedMove());
             if (isNeedMove()) {
                 if (normal.isEmpty()) {
                     // 保存正常的布局位置
                     normal.set(inner.getLeft(), inner.getTop(), inner.getRight(), inner.getBottom());
                 }
+                LogUtil.d("deltaX= " + deltaX);
                 inner.layout(inner.getLeft() - deltaX, inner.getTop(), inner.getRight() - deltaX, inner.getBottom());
             }
             break;
@@ -206,6 +208,7 @@ public class HOverScrollList extends HorizontalScrollView {
 
         int offset = inner.getMeasuredWidth() - getWidth();
         int scrollX = getScrollX();
+        LogUtil.d("offset= " + offset + " scrollX= " + scrollX);
         if (scrollX == 0 || scrollX == offset) {
             return true;
         }
