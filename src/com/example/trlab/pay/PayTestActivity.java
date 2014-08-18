@@ -33,7 +33,17 @@ public class PayTestActivity extends PaymentActivity {
 //        MpUtils.enablePaymentBroadcast(this, Manifest.permission.PAYMENT_BROADCAST_PERMISSION);
         String s = Service_Id + In_App_Secret;
         String md5 = md5(s);
-        LogUtil.d("md5= " + md5 + " s= " + s + " equal = ? " + md5.equals("0e1bb3f5ea8c414cd8295e4a4fd767bc"));
+        
+        String sig = "aa0264d38fb33dcf884a0a376de3ebda";
+        String sig1 = "billing_type=DCBconfirmation_code=country=VNcurrency=VNDkeyword=message_id=b5133fd70072bd681d1a42aae02dde4boperator=China+Unicompayment_code=1408328573617a2price=15000.0price_wo_vat=13636.36product_name=TH2014081802223700007609sender=service_id=15666d6cb1a368cf1d91d832e6496a3bshortcode=status=OKtest=trueuser_id=460012245326066user_share=0.3a38779e81d0e7c965cf72a0b4b8ac8eab";
+        String sig2 = "billing_type=DCB&confirmation_code=&country=VN&currency=VND&keyword=&message_id=b5133fd70072bd681d1a42aae02dde4b&operator=China+Unicom&payment_code=1408328573617a2&price=15000.0&price_wo_vat=13636.36&product_name=TH2014081802223700007609&sender=&service_id=15666d6cb1a368cf1d91d832e6496a3b&shortcode=&status=OK&test=true&user_id=460012245326066&user_share=0.3a";
+        sig2 = sig2 + "38779e81d0e7c965cf72a0b4b8ac8eab";
+        String sig3 = sig2.replace("&", "");
+        LogUtil.d("sig3 = " + sig3);
+        LogUtil.d("sig1 = " + sig1);
+        LogUtil.d("sig1 == sig3 ? " + sig1.equals(sig3));
+        String md5s = md5(sig3);
+        LogUtil.d("md5s= " + md5s  + " equal = ? " + md5s.equals(sig));
 
         Button payButton = (Button) findViewById(R.id.payButton);
         payButton.setOnClickListener(new View.OnClickListener() {
