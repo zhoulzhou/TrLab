@@ -34,14 +34,15 @@ public class PayTestActivity extends PaymentActivity {
         String s = Service_Id + In_App_Secret;
         String md5 = md5(s);
         
-        String sig = "aa0264d38fb33dcf884a0a376de3ebda";
+        String sig = "df1ee0f0846019f11d9adb5165b14e9e";
         String sig1 = "billing_type=DCBconfirmation_code=country=VNcurrency=VNDkeyword=message_id=b5133fd70072bd681d1a42aae02dde4boperator=China+Unicompayment_code=1408328573617a2price=15000.0price_wo_vat=13636.36product_name=TH2014081802223700007609sender=service_id=15666d6cb1a368cf1d91d832e6496a3bshortcode=status=OKtest=trueuser_id=460012245326066user_share=0.3a38779e81d0e7c965cf72a0b4b8ac8eab";
-        String sig2 = "billing_type=DCB&confirmation_code=&country=VN&currency=VND&keyword=&message_id=b5133fd70072bd681d1a42aae02dde4b&operator=China+Unicom&payment_code=1408328573617a2&price=15000.0&price_wo_vat=13636.36&product_name=TH2014081802223700007609&sender=&service_id=15666d6cb1a368cf1d91d832e6496a3b&shortcode=&status=OK&test=true&user_id=460012245326066&user_share=0.3a";
+        String sig2 = "billing_type=DCB&confirmation_code=&country=CN&currency=RMB&keyword=&message_id=00ed4ac607c428878c8a88b2c3f3bae8&operator=China Unicom&payment_code=1408423566288a14&price=2.0&price_wo_vat=2.0&product_name=111&sender=&service_id=15666d6cb1a368cf1d91d832e6496a3b&shortcode=&status=OK&test=true&user_id=460008322146009&user_share=0.35";
         sig2 = sig2 + "38779e81d0e7c965cf72a0b4b8ac8eab";
         String sig3 = sig2.replace("&", "");
         LogUtil.d("sig3 = " + sig3);
         LogUtil.d("sig1 = " + sig1);
         LogUtil.d("sig1 == sig3 ? " + sig1.equals(sig3));
+        String sig4 = "billing_type=DCBconfirmation_code=country=CNcurrency=RMBkeyword=message_id=00ed4ac607c428878c8a88b2c3f3bae8operator=China Unicompayment_code=1408423566288a14price=2.0price_wo_vat=2.0product_name=111sender=service_id=15666d6cb1a368cf1d91d832e6496a3bshortcode=status=OKtest=trueuser_id=460008322146009user_share=0.3538779e81d0e7c965cf72a0b4b8ac8eab";
         String md5s = md5(sig3);
         LogUtil.d("md5s= " + md5s  + " equal = ? " + md5s.equals(sig));
 
