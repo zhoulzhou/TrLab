@@ -1,5 +1,7 @@
 package com.example.trlab;
 
+import cn.sharesdk.framework.ShareSDK;
+
 import com.example.trlab.utils.DisplayUtil;
 
 import android.app.Application;

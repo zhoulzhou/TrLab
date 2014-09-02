@@ -7,7 +7,7 @@ public class LogUtil{
     
     public static void d(String str){
         if (logEnable) {
-            Log.d("zhou", str);
+            Log.d("shu", str);
         }
     }
 }

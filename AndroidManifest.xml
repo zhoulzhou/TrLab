@@ -7,13 +7,21 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-    
+
     <!-- 许可 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <!-- 创建你自己的 permission 去保护 payment broadcast -->
     <permission
@@ -22,10 +30,8 @@
         android:protectionLevel="signature" />
     <!-- 系统自动授予 "signature" permission，不需要通知 user. -->
     <uses-permission android:name="com.example.trlab.PAYMENT_BROADCAST_PERMISSION" />
-    
-    
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    
+
     <application
         android:name="com.example.trlab.TrLabApplication"
         android:allowBackup="true"
@@ -33,7 +39,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.trlab.scheduleTask.ScheduleTaskTestActivity"
+            android:name="com.example.trlab.test.TestActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,13 +47,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <receiver android:name="com.example.trlab.boot.BootCompletedReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        
+
         <!-- pay start -->
         <receiver android:name="mp.MpSMSReceiver" >
             <intent-filter>
@@ -71,19 +77,39 @@
                 <action android:name="mp.info.PAYMENT_STATUS_CHANGED" />
             </intent-filter>
         </receiver>
-        
-        <receiver 
-            android:name="com.example.trlab.pay.BCTestActivity$TestBroadcast">
+        <receiver android:name="com.example.trlab.pay.BCTestActivity$TestBroadcast" >
             <intent-filter>
-                <action android:name="com.test.bc"></action>
+                <action android:name="com.test.bc" >
+                </action>
             </intent-filter>
         </receiver>
-        
+
         <!-- pay end -->
-        
+
+
+        <!-- share start -->
+        <activity
+            android:name="cn.sharesdk.framework.ShareSDKUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- share end -->
     </application>
 
-  
-    
-    
 </manifest>
