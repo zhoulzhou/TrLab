@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.trlab.R;
+import com.example.trlab.utils.LogUtil;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ public class TestActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.list);
         TestListAdapter adapter = new TestListAdapter(this, list);
         listView.setAdapter(adapter);
+        
+        md5();
     }
     
     private void initData(){
@@ -45,5 +48,12 @@ public class TestActivity extends Activity {
             list.add(data);
         }
         
+    }
+    
+    private void md5(){
+        String s = "D5:89:64:DE:2E:D0:F1:14:5A:F9:9A:BA:E5:07:2F:6D";
+        String s1 = s.replaceAll(":", "");
+        String s2 = s1.toLowerCase();
+        LogUtil.d("s2= " + s2);
     }
 }
