@@ -12,7 +12,8 @@ import android.widget.ListView;
 
 public class TestActivity extends Activity {
     private List<Object> list = new ArrayList<Object>();
-
+    private ArrayList<Long> mMaterIdList = new ArrayList<Long>();
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +24,29 @@ public class TestActivity extends Activity {
         TestListAdapter adapter = new TestListAdapter(this, list);
         listView.setAdapter(adapter);
         
-        md5();
+//        md5();
+        
+//        spiltString();
+        
+        subString();
+    }
+    
+    private void subString(){
+        String result = "http://www.badi.com/sldj?sk=2&masterids=34,123,4323";
+        int startIndex = result.lastIndexOf("=");
+        String ids = result.substring(startIndex + 1);
+        LogUtil.d("ids= " + ids);
+    }
+    
+    private void spiltString(){
+        String s = "2323441,2324343,54646";
+        String[] sS = s.split(",");
+        for(String s1 : sS){
+            LogUtil.d("s1= " + s1.toString());
+            mMaterIdList.add(Long.valueOf(s1));
+        }
+        LogUtil.d("sS= " + sS.toString());
+        LogUtil.d("mMaterIdList= " + mMaterIdList.toString());
     }
     
     private void initData(){

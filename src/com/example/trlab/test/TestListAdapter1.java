@@ -24,7 +24,7 @@ class TestListAdapter1 extends BaseAdapter {
     private TreeSet mSeparatorsSet = new TreeSet();
 
     public TestListAdapter1() {
-        mInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public void addItem(final String item) {
@@ -66,31 +66,31 @@ class TestListAdapter1 extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
-        int type = getItemViewType(position);
-        System.out.println("getView " + position + " " + convertView + " type = " + type);
-        if (convertView == null) {
-            holder = new ViewHolder();
-            switch (type) {
-                case TYPE_ITEM:
-                    convertView = mInflater.inflate(R.layout.item1, null);
-                    holder.textView = (TextView)convertView.findViewById(R.id.text);
-                    break;
-                case TYPE_SEPARATOR:
-                    convertView = mInflater.inflate(R.layout.item2, null);
-                    holder.textView = (TextView)convertView.findViewById(R.id.textSeparator);
-                    break;
-            }
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder)convertView.getTag();
-        }
-        holder.textView.setText(mData.get(position));
+//        ViewHolder holder = null;
+//        int type = getItemViewType(position);
+//        System.out.println("getView " + position + " " + convertView + " type = " + type);
+//        if (convertView == null) {
+//            holder = new ViewHolder();
+//            switch (type) {
+//                case TYPE_ITEM:
+//                    convertView = mInflater.inflate(R.layout.item1, null);
+//                    holder.textView = (TextView)convertView.findViewById(R.id.text);
+//                    break;
+//                case TYPE_SEPARATOR:
+//                    convertView = mInflater.inflate(R.layout.item2, null);
+//                    holder.textView = (TextView)convertView.findViewById(R.id.textSeparator);
+//                    break;
+//            }
+//            convertView.setTag(holder);
+//        } else {
+//            holder = (ViewHolder)convertView.getTag();
+//        }
+//        holder.textView.setText(mData.get(position));
         return convertView;
     }
 
 }
 
-public class ViewHolder {
-    public TextView textView;
-}
+//public class ViewHolder {
+//    public TextView textView;
+//}
