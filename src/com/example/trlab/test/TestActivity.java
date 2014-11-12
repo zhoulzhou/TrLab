@@ -2,6 +2,8 @@ package com.example.trlab.test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.example.trlab.R;
 import com.example.trlab.utils.LogUtil;
@@ -19,16 +21,29 @@ public class TestActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_main_layout);
 
-        initData();
-        ListView listView = (ListView) findViewById(R.id.list);
-        TestListAdapter adapter = new TestListAdapter(this, list);
-        listView.setAdapter(adapter);
+//        initData();
+//        ListView listView = (ListView) findViewById(R.id.list);
+//        TestListAdapter adapter = new TestListAdapter(this, list);
+//        listView.setAdapter(adapter);
         
 //        md5();
         
 //        spiltString();
         
-        subString();
+//        subString();
+        
+        replaceBlank("sdafd\n\n\n\n\n\nssfsd\nlskfas\n\nsdlfkjslk\n\n\n\n\n");
+    }
+    
+    public static String replaceBlank(String str) {
+        String dest = "";
+        if (str!=null) {
+            Pattern p = Pattern.compile("\n{2,}");
+            Matcher m = p.matcher(str);
+            dest = m.replaceAll("\n");
+            LogUtil.d("dest= " + dest);
+        }
+        return dest;
     }
     
     private void subString(){

@@ -55,7 +55,7 @@ public class WbTestActivity extends Activity{
 			}
 			
 		});
-		mWeb.loadUrl("http://www.sina.com");
+		mWeb.loadUrl("http://tu.duowan.com/gallery/94561.html#p1");
 	}
 	
 }
