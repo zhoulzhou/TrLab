@@ -3,6 +3,9 @@ package com.example.trlab.pay;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.os.Bundle;
 import android.view.View;
@@ -21,9 +24,9 @@ import com.example.trlab.R;
 import com.example.trlab.utils.LogUtil;
  
 public class PayTestActivity extends PaymentActivity {
-    private static final String Service_Id = "dd70755aa9e8ffa37000a4b3814f68eb";  //
-    private static final String In_App_Secret = "1f08bd6d3924b8b21e4695ca83b48de8"; //
-    private static final String Secret = "9d0a0fa49c7ca54103218339a85925c2"; //
+    private static final String Service_Id = "af0e4cae0042618149997a59eba0c74b";  //
+    private static final String In_App_Secret = "06e3c29f71dcb2e9787c550f3a97f39f"; //
+    private static final String Secret = "38779e81d0e7c965cf72a0b4b8ac8eab"; //
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class PayTestActivity extends PaymentActivity {
 //        MpUtils.enablePaymentBroadcast(this, Manifest.permission.PAYMENT_BROADCAST_PERMISSION);
         String s = Service_Id + In_App_Secret;
         String md5 = md5(s);
+        LogUtil.d("xxx md5=  " + md5);
         
         String sig = "df1ee0f0846019f11d9adb5165b14e9e";
         String sig1 = "billing_type=DCBconfirmation_code=country=VNcurrency=VNDkeyword=message_id=b5133fd70072bd681d1a42aae02dde4boperator=China+Unicompayment_code=1408328573617a2price=15000.0price_wo_vat=13636.36product_name=TH2014081802223700007609sender=service_id=15666d6cb1a368cf1d91d832e6496a3bshortcode=status=OKtest=trueuser_id=460012245326066user_share=0.3a38779e81d0e7c965cf72a0b4b8ac8eab";
@@ -61,6 +65,40 @@ public class PayTestActivity extends PaymentActivity {
                 makePayment(pr);
             }
         });
+        
+        getPayId("sd2sa,nda1");
+        
+        StringBuilder sb = new StringBuilder();
+        String sigO = "billing_type=MT&confirmation_code=80326&country=IN&currency=INR&keyword=TXT&message_id=e1b1549139584908faf2b880fcc4a515&operator=Vodafone&payment_code=1416886807837a2&price=10.0&price_wo_vat=8.4&product_name=TH2014112503395400007638&revenue=3.528&sender=XRnXYluwGPyPY0XsXqVFo9ZYUWrlyjEttGfFC8adqsg&service_id=e59b7038105914ba794260e1e5bd95a2&shortcode=9287090010&sig=da54021abfa18f9cb1e5bf2e32bdc9aa&sku=null&status=OK&user_id=404119146121686&user_share=0.42";
+//        int index = sigO.indexOf("sig=");
+//        String next = sigO.substring(index);
+//        String sigBefore = sigO.substring(0, index);
+//        sb.append(sigBefore);
+//        int index0 = next.indexOf("=");
+//        int index1 = next.indexOf("&");
+//        String sigF = next.substring(index0+1,index1);
+//        String sigAfter = next.substring(index1 + 1);
+//        sb.append(sigAfter);
+//        LogUtil.d("sigBefore= " + sigBefore);
+//        LogUtil.d("sigAfter= " + sigAfter);
+//        sb.append("f6237096e13efb2deeb8e932e84550a5");
+//        String sigS = sb.toString().replace("&", "");
+//        String md5F = md5(sigS);
+//        LogUtil.d("= ? " + md5F.equals(sigF));
+        
+        Pattern p=Pattern.compile("&sig=[^&]*"); 
+        Matcher m=p.matcher(sigO); 
+        String sigEx = null ;
+        while(m.find()) { 
+            sigEx = m.group();
+            LogUtil.d("s= " + sigEx);
+        }
+        String sigFX = sigEx.substring(sigEx.indexOf("=")+1);
+        String sigExF = sigO.replace(sigEx, "");
+        sb.append(sigExF);
+        sb.append("f6237096e13efb2deeb8e932e84550a5");
+        String md5FX = md5(sb.toString().replace("&", ""));
+        LogUtil.d("= ? " + md5FX.equals(sigFX));
     }
 
     @Override
@@ -88,5 +126,14 @@ public class PayTestActivity extends PaymentActivity {
             hex.append(Integer.toHexString(b & 0xFF));
         }
         return hex.toString();
+    }
+    
+    private ArrayList<String> getPayId(String ids){
+        ArrayList al = new ArrayList<String>();
+        int index = ids.indexOf(",");
+        al.add(ids.substring(0, index));
+        al.add(ids.substring(index + 1));
+        LogUtil.d("al= " + al.toString());
+        return al;
     }
 }
